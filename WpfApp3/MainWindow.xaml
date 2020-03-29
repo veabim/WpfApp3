@@ -1,0 +1,49 @@
+﻿<Window x:Class="WpfApp3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp3"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:WpfApp3.ViewModel"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+            <TextBox DockPanel.Dock="Top" Height="30" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1"/>
+            <DockPanel DockPanel.Dock="Bottom">
+                <Button Content="Get TreeView" Command="{Binding OpenSth}" Width="100"/>
+                <Button Content="Show Check Item" Command="{Binding ShowCheck}" Width="100"/>
+            </DockPanel>
+            
+            <TreeView BorderBrush="Black" BorderThickness="1" ItemsSource="{Binding Root}">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Sub}">
+                        <CheckBox IsChecked="{Binding CheckedItem}" Margin="0 8 0 8" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>   
+                        </CheckBox>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+            
+        </DockPanel>
+        <ListView Grid.Row="0" Grid.Column="2" BorderBrush="Black" BorderThickness="1" ItemsSource="{Binding RootBoards}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Window>
