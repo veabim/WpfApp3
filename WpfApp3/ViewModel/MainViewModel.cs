@@ -18,13 +18,16 @@ namespace WpfApp3.ViewModel //ShowCheck
     {
         MainModel mainModel = new MainModel();
         private ICollectionView root;
+        private ObservableCollection<Item> SelectItem;
         public MainViewModel()
         {
             OpenSth = new DelegateCommand(DisplayItemTree);
             ShowCheck = new DelegateCommand(ShowCheckedItemsCommand);
+            TreeNodeDoubleClickevent = new DelegateCommand(ClickTreeItem);
         }
         public ICommand OpenSth { get; }
         public ICommand ShowCheck { get; }
+        public ICommand TreeNodeDoubleClickevent { get; }
         public void DisplayItemTree()
         {
             var itemTree = mainModel.GetItemsTree();
@@ -52,6 +55,11 @@ namespace WpfApp3.ViewModel //ShowCheck
                 }
             }
             MessageBox.Show(str.ToString());
+        }
+
+        public void ClickTreeItem()
+        {
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

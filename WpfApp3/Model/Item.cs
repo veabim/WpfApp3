@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp3.Model
 {
-    class Item
+    public class Item
     {
         public string Name { get; set; }
         public Item(string name)

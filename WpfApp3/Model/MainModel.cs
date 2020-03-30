@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -8,10 +9,11 @@ using System.Threading.Tasks;
 namespace WpfApp3.Model
 {
     
-    class MainModel
+    class MainModel : BindableBase
     {
+        
         List<Item> items = new List<Item>();
-
+        #region
         Item item1 = new Item("Итем 1");
         Item item2 = new Item("Итем 2");
         Item item3 = new Item("Итем 3");
@@ -60,9 +62,10 @@ namespace WpfApp3.Model
             items.Add(item1);
             items.Add(item2);
             items.Add(item3);
-
+            #endregion
             return items;
         }
+        
 
         public List<Item> FindCheckedItem()
         {
@@ -82,19 +85,6 @@ namespace WpfApp3.Model
                 FindCheckedItemInternal(checkedItem, item.Sub);
             }
         }
-
-
-        //public List<Item> RecursionRoot(List<Item> items)
-        //{
-        //    List<Item> newItems = new List<Item>();
-        //    foreach (var item in items)
-        //    {
-        //        var newItem = item.Source;
-        //        newItem = item.Name + "Сурс";
-        //        List<Item> sub = item.Sub;
-        //        RecursionRoot(sub);
-        //    }
-        //}
 
     }
 }

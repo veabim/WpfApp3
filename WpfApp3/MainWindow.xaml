@@ -4,6 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp3"
+        xmlns:beh="clr-namespace:WpfApp3.ViewModel"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:prism="http://www.codeplex.com/prism"
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:WpfApp3.ViewModel"
         Title="MainWindow" Height="450" Width="800">
@@ -26,24 +29,19 @@
                 <Button Content="Get TreeView" Command="{Binding OpenSth}" Width="100"/>
                 <Button Content="Show Check Item" Command="{Binding ShowCheck}" Width="100"/>
             </DockPanel>
-            
             <TreeView BorderBrush="Black" BorderThickness="1" ItemsSource="{Binding Root}">
+                <i:Interaction.Behaviors>
+                    <beh:BindableSelectedItemBehavior SelectedItem="{Binding SelectedNode, Mode=TwoWay}"/>
+                </i:Interaction.Behaviors>
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Sub}">
-                        <CheckBox IsChecked="{Binding CheckedItem}" Margin="0 8 0 8" VerticalAlignment="Center">
-                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>   
-                        </CheckBox>
+                        <DockPanel>
+                            <CheckBox IsChecked="{Binding CheckedItem}" Margin="0 8 0 8" VerticalAlignment="Center" DockPanel.Dock="Left"/>
+                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" DockPanel.Dock="Right"/>
+                        </DockPanel>
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>
-            
         </DockPanel>
-        <ListView Grid.Row="0" Grid.Column="2" BorderBrush="Black" BorderThickness="1" ItemsSource="{Binding RootBoards}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name}"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
     </Grid>
 </Window>
