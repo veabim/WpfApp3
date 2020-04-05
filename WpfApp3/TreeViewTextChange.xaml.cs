@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TestNotifyPropertyChange
+namespace WpfApp3
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для TreeViewTextChange.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TreeViewTextChange : UserControl
     {
-        public MainWindow()
+        public TreeViewTextChange()
         {
             InitializeComponent();
         }

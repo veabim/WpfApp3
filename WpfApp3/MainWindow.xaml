@@ -9,6 +9,7 @@
         xmlns:prism="http://www.codeplex.com/prism"
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:WpfApp3.ViewModel"
+        xmlns:bh="clr-namespace:WpfApp3.ViewModel"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
         <vm:MainViewModel/>
@@ -43,5 +44,16 @@
                 </TreeView.ItemTemplate>
             </TreeView>
         </DockPanel>
+        <DataGrid AutoGenerateColumns="False" Height="210" HorizontalContentAlignment="Left" Name="DataGrid" VerticalAlignment="Top" Grid.Column="2" Grid.Row="0" Margin="0,0,0,0" ItemsSource="{Binding ListOfCircuets}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Length}" MinWidth="50"/>
+                <DataGridTextColumn Binding="{Binding dU}" MinWidth="50"/>
+                <DataGridTextColumn Binding="{Binding Cable}" MinWidth="50"/>
+                <DataGridTextColumn Binding="{Binding I}" MinWidth="50"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding TextText, Mode=TwoWay}" Background="Aqua" Width="200" Height="50"/>
+        <Button Content="Show Check Item" Command="{Binding Sth}" Width="100"/>
+        <local:TreeViewTextChange Grid.Row="1" Grid.Column="2"></local:TreeViewTextChange>
     </Grid>
 </Window>

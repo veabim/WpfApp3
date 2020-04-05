@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,8 +12,30 @@ using WpfApp3.Model;
 
 namespace WpfApp3.ViewModel
 {
-    public class BindableSelectedItemBehavior : Behavior<TreeView>
+    public class BindableSelectedItemBehavior : Behavior<TreeView>, INotifyPropertyChanged
     {
+        MainViewModel vm = new MainViewModel();
+
+        private string _message;
+        public string Message
+        {
+            get
+            {
+                return _message;
+            }
+
+            set
+            {
+                _message = value;
+                OnPropertyChanged("Message");
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public object SelectedItem
         {
@@ -51,11 +75,13 @@ namespace WpfApp3.ViewModel
         private void OnTreeViewSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             SelectedItem = e.NewValue;
-            GetName((Item)SelectedItem);
+            string name = GetName((Item)SelectedItem);
+            Message = "edgddgdgdg";
         }
-        public void GetName(Item item)
+        public string GetName(Item item)
         {
-            MessageBox.Show(item.Name);
+            string circ = item.Name;
+            return circ;
         }
     }
 }

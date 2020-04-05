@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,107 +22,42 @@ namespace TreeView_Learning
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        private string _message;
+        public string Message
+        {
+            get
+            {
+                return _message;
+            }
+
+            set
+            {
+                _message = value;
+                OnPropertyChanged("Message");
+            }
+        }
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new ViewModel();
-        }
-    }
-
-    class ViewModel
-    {
-        private ObservableCollection<Node> myVar;
-
-        public ObservableCollection<Node> NodeList
-        {
-            get { return myVar; }
-            set { myVar = value; }
+            DataContext = this;
+            Message = "original message";
+            Message2.Text = "original message2";
         }
 
-        public DelegateCommand<Node> TreeNodeDoubleClickevent { get; set; }
-
-        public ViewModel()
+        private void button1_Click(object sender, RoutedEventArgs e)
         {
-            NodeList = new ObservableCollection<Node>();
-            Node nd = new Node();
-            nd.NodeName = "Item 1.1";
-            Node nd1 = new Node();
-            nd1.NodeName = "Item 1.2";
-            Node nd2 = new Node();
-            nd2.NodeName = "Item 1";
-            nd2.Children.Add(nd);
-            nd2.Children.Add(nd1);
-            NodeList.Add(nd2);
-            TreeNodeDoubleClickevent = new DelegateCommand<Node>(MouseDoubleClick);
+            Message = "kf,elflblf,f";
+            Message2.Text = "button was click, message2 changed";
         }
 
-        private void MouseDoubleClick(Node obj)
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
         {
-            MessageBox.Show(obj.NodeName);
-        }
-    }
-
-    class Node
-    {
-        private string nodeName;
-
-        public string NodeName
-        {
-            get { return nodeName; }
-            set { nodeName = value; }
-        }
-
-        private ObservableCollection<Node> myVar = new ObservableCollection<Node>();
-
-        public ObservableCollection<Node> Children
-        {
-            get { return myVar; }
-            set { myVar = value; }
-        }
-        public class BindableSelectedItemBehavior : Behavior<TreeView>
-        {
-
-            public object SelectedItem
-            {
-                get { return GetValue(SelectedItemProperty); }
-                set { SetValue(SelectedItemProperty, value); }
-            }
-
-            public static readonly DependencyProperty SelectedItemProperty =
-                DependencyProperty.Register(nameof(SelectedItem), typeof(object), typeof(BindableSelectedItemBehavior), new UIPropertyMetadata(null, OnSelectedItemChanged));
-
-            private static void OnSelectedItemChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-            {
-                var item = e.NewValue as TreeViewItem;
-                if (item != null)
-                {
-                    item.SetValue(TreeViewItem.IsSelectedProperty, true);
-                }
-            }
-
-            protected override void OnAttached()
-            {
-                base.OnAttached();
-
-                AssociatedObject.SelectedItemChanged += OnTreeViewSelectedItemChanged;
-            }
-
-            protected override void OnDetaching()
-            {
-                base.OnDetaching();
-
-                if (AssociatedObject != null)
-                {
-                    AssociatedObject.SelectedItemChanged -= OnTreeViewSelectedItemChanged;
-                }
-            }
-
-            private void OnTreeViewSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-            {
-                SelectedItem = e.NewValue;
-            }
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

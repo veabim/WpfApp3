@@ -16,18 +16,18 @@ namespace WpfApp3.ViewModel //ShowCheck
 {
     class MainViewModel : BindableBase
     {
+
         MainModel mainModel = new MainModel();
         private ICollectionView root;
-        private ObservableCollection<Item> SelectItem;
         public MainViewModel()
         {
             OpenSth = new DelegateCommand(DisplayItemTree);
             ShowCheck = new DelegateCommand(ShowCheckedItemsCommand);
-            TreeNodeDoubleClickevent = new DelegateCommand(ClickTreeItem);
+            Sth = new DelegateCommand(Changetext);
         }
         public ICommand OpenSth { get; }
         public ICommand ShowCheck { get; }
-        public ICommand TreeNodeDoubleClickevent { get; }
+        public ICommand Sth { get; }
         public void DisplayItemTree()
         {
             var itemTree = mainModel.GetItemsTree();
@@ -49,7 +49,7 @@ namespace WpfApp3.ViewModel //ShowCheck
             }
             else
             {
-                foreach(var item in items)
+                foreach (var item in items)
                 {
                     str.Append(item.Name);
                 }
@@ -57,11 +57,21 @@ namespace WpfApp3.ViewModel //ShowCheck
             MessageBox.Show(str.ToString());
         }
 
-        public void ClickTreeItem()
+        private string _name;
+        public string TextText
         {
-
+            get { return _name; }
+            set
+            {
+                _name = value;
+                RaisePropertyChanged("TextText");
+            }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public void Changetext()
+        {
+            TextText = "dggg";
+        }
+
     }
 }
