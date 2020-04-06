@@ -32,6 +32,11 @@ namespace WpfApp3.ViewModel //ShowCheck
         {
             var itemTree = mainModel.GetItemsTree();
             Root = CollectionViewSource.GetDefaultView(itemTree);
+            //Root.Filter = new Predicate<object>((item) =>
+            //{
+            //    var realItem = (Item)item;
+            //    return realItem;
+            //});
             Root.Refresh();
         }
         public ICollectionView Root
