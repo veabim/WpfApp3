@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:WpfApp3"
         xmlns:beh="clr-namespace:WpfApp3.ViewModel"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:ii="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:prism="http://www.codeplex.com/prism"
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:WpfApp3.ViewModel"
@@ -25,11 +26,22 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
-            <TextBox DockPanel.Dock="Top" Height="30" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1"/>
+            
+            <!--Текстовое поле для фильтрации элементов TreeView-->
+            <TextBox x:Name="searchBox" DockPanel.Dock="Top" Height="30" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Text="{Binding SearchText}">
+                <ii:Interaction.Triggers>
+                    <ii:EventTrigger EventName="TextChenged">
+                        <ii:InvokeCommandAction Command="{Binding TextChengedCommand}" CommandParameter="{Binding ElementName=searchBox, Path=Text}"/>
+                    </ii:EventTrigger>
+                </ii:Interaction.Triggers>
+            </TextBox>
+            
             <DockPanel DockPanel.Dock="Bottom">
                 <Button Content="Get TreeView" Command="{Binding OpenSth}" Width="100"/>
                 <Button Content="Show Check Item" Command="{Binding ShowCheck}" Width="100"/>
             </DockPanel>
+            
+            <!--Само TreeView с обрабочиком поведения--> 
             <TreeView BorderBrush="Black" BorderThickness="1" ItemsSource="{Binding Root}">
                 <i:Interaction.Behaviors>
                     <beh:BindableSelectedItemBehavior SelectedItem="{Binding SelectedNode, Mode=TwoWay}"/>
@@ -43,6 +55,8 @@
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>
+            
+            
         </DockPanel>
         <DataGrid AutoGenerateColumns="False" Height="210" HorizontalContentAlignment="Left" Name="DataGrid" VerticalAlignment="Top" Grid.Column="2" Grid.Row="0" Margin="0,0,0,0" ItemsSource="{Binding ListOfCircuets}">
             <DataGrid.Columns>

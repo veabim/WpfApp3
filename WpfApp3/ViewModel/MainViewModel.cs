@@ -24,19 +24,26 @@ namespace WpfApp3.ViewModel //ShowCheck
             OpenSth = new DelegateCommand(DisplayItemTree);
             ShowCheck = new DelegateCommand(ShowCheckedItemsCommand);
             Sth = new DelegateCommand(Changetext);
+            TextChengedCommand = new DelegateCommand<object>(textChange);
         }
         public ICommand OpenSth { get; }
         public ICommand ShowCheck { get; }
         public ICommand Sth { get; }
+        public ICommand TextChengedCommand { get; }
+
+        private void textChange(object obj)
+        {
+            var str = obj as string;
+        }
         public void DisplayItemTree()
         {
             var itemTree = mainModel.GetItemsTree();
             Root = CollectionViewSource.GetDefaultView(itemTree);
-            //Root.Filter = new Predicate<object>((item) =>
-            //{
-            //    var realItem = (Item)item;
-            //    return realItem;
-            //});
+            Root.Filter = new Predicate<object>((item) =>
+            {
+                var realItem = (Item)item;
+                return true;
+            });
             Root.Refresh();
         }
         public ICollectionView Root
