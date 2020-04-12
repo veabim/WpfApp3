@@ -11,7 +11,7 @@
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:WpfApp3.ViewModel"
         xmlns:bh="clr-namespace:WpfApp3.ViewModel"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="1600">
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
@@ -26,7 +26,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
-            
+
             <!--Текстовое поле для фильтрации элементов TreeView-->
             <TextBox x:Name="searchBox" DockPanel.Dock="Top" Height="30" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Text="{Binding SearchText}">
                 <ii:Interaction.Triggers>
@@ -35,17 +35,17 @@
                     </ii:EventTrigger>
                 </ii:Interaction.Triggers>
             </TextBox>
-            
+
             <DockPanel DockPanel.Dock="Bottom">
                 <Button Content="Get TreeView" Command="{Binding OpenSth}" Width="100"/>
                 <Button Content="Show Check Item" Command="{Binding ShowCheck}" Width="100"/>
             </DockPanel>
-            
-            <!--Само TreeView с обрабочиком поведения--> 
+
+            <!--Само TreeView с обрабочиком поведения-->
             <TreeView BorderBrush="Black" BorderThickness="1" ItemsSource="{Binding Root}">
-                <i:Interaction.Behaviors>
+                <ii:Interaction.Behaviors>
                     <beh:BindableSelectedItemBehavior SelectedItem="{Binding SelectedNode, Mode=TwoWay}"/>
-                </i:Interaction.Behaviors>
+                </ii:Interaction.Behaviors>
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Sub}">
                         <DockPanel>
@@ -55,19 +55,25 @@
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>
-            
-            
+
+
         </DockPanel>
-        <DataGrid AutoGenerateColumns="False" Height="210" HorizontalContentAlignment="Left" Name="DataGrid" VerticalAlignment="Top" Grid.Column="2" Grid.Row="0" Margin="0,0,0,0" ItemsSource="{Binding ListOfCircuets}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Length}" MinWidth="50"/>
-                <DataGridTextColumn Binding="{Binding dU}" MinWidth="50"/>
-                <DataGridTextColumn Binding="{Binding Cable}" MinWidth="50"/>
-                <DataGridTextColumn Binding="{Binding I}" MinWidth="50"/>
+        <DataGrid x:Name="circ" AutoGenerateColumns="False" Height="210" HorizontalContentAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="0" Margin="0,0,0,0">
+            <!--<DataGrid.Columns>
+                <DataGridTextColumn Header="Длина" Width="1*" MinWidth="100"/>
+                <DataGridTextColumn Header="Потери" Width="1*" MinWidth="100"/>
+                <DataGridTextColumn Header="Кабель" Width="1*" MinWidth="100"/>
+                <DataGridTextColumn Header="Ток" Width="1*" MinWidth="100"/>
             </DataGrid.Columns>
+            <DataGrid.Resources>
+                <
+                <DataTemplate>
+                    <
+                </DataTemplate>
+            </DataGrid.Resources>-->
         </DataGrid>
         <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding TextText, Mode=TwoWay}" Background="Aqua" Width="200" Height="50"/>
         <Button Content="Show Check Item" Command="{Binding Sth}" Width="100"/>
-        <local:TreeViewTextChange Grid.Row="1" Grid.Column="2"></local:TreeViewTextChange>
+        
     </Grid>
 </Window>

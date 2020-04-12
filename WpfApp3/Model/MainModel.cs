@@ -89,17 +89,17 @@ namespace WpfApp3.Model
             circuets4.I = 78;
             circuets4.Length = 30050;
 
-            //item1.ListOfCircuets.Add(circuets1);
-            //item1.ListOfCircuets.Add(circuets2);
-            //item1.ListOfCircuets.Add(circuets3);
+            item1.ListOfCircuets.Add(circuets1);
+            item1.ListOfCircuets.Add(circuets2);
+            item1.ListOfCircuets.Add(circuets3);
 
-            //item2.ListOfCircuets.Add(circuets2);
-            //item2.ListOfCircuets.Add(circuets3);
+            item2.ListOfCircuets.Add(circuets2);
+            item2.ListOfCircuets.Add(circuets3);
 
-            //item3.ListOfCircuets.Add(circuets3);
-            //item3.ListOfCircuets.Add(circuets2);
-            //item3.ListOfCircuets.Add(circuets1);
-            //item3.ListOfCircuets.Add(circuets4);
+            item3.ListOfCircuets.Add(circuets3);
+            item3.ListOfCircuets.Add(circuets2);
+            item3.ListOfCircuets.Add(circuets1);
+            item3.ListOfCircuets.Add(circuets4);
             #endregion
             return items;
         }

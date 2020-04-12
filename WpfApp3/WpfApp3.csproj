@@ -104,9 +104,6 @@
     <Compile Include="Model\Circuets.cs" />
     <Compile Include="Model\Item.cs" />
     <Compile Include="Model\MainModel.cs" />
-    <Compile Include="TreeViewTextChange.xaml.cs">
-      <DependentUpon>TreeViewTextChange.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\BindableSelectedItemBehavior.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Page Include="MainWindow.xaml">
@@ -121,10 +118,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="TreeViewTextChange.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

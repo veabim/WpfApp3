@@ -18,6 +18,6 @@ namespace WpfApp3.Model
         public Item Root { get; set; }
         public string Source { get; set; }
         public bool CheckedItem { get; set; }
-        public List<Circuets> ListOfCircuets { get; set; }
+        public ObservableCollection<Circuets> ListOfCircuets { get; set; } = new ObservableCollection<Circuets>();
     }
 }

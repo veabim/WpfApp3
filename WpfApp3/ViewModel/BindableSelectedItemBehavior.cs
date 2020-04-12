@@ -12,7 +12,7 @@ using WpfApp3.Model;
 
 namespace WpfApp3.ViewModel
 {
-    public class BindableSelectedItemBehavior : Behavior<TreeView>, INotifyPropertyChanged
+    public class BindableSelectedItemBehavior : Behavior<TreeView>
     {
         MainViewModel vm = new MainViewModel();
 
@@ -75,13 +75,6 @@ namespace WpfApp3.ViewModel
         private void OnTreeViewSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             SelectedItem = e.NewValue;
-            string name = GetName((Item)SelectedItem);
-            Message = "edgddgdgdg";
-        }
-        public string GetName(Item item)
-        {
-            string circ = item.Name;
-            return circ;
         }
     }
 }
