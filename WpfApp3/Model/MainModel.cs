@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp3.Model
 {
-    
+
     class MainModel : BindableBase
     {
 
@@ -69,23 +69,23 @@ namespace WpfApp3.Model
             items.Add(item3);
 
             circuets1.Cable = "ВВГнг";
-            circuets1.dU = 0.25;
+            circuets1._dU = 0.25;
             circuets1.I = 25;
             circuets1.Length = 110;
 
             circuets2.Cable = "ПуГВ";
-            circuets2.dU = 1.05;
+            circuets2._dU = 1.05;
             circuets2.I = 40;
             circuets2.Length = 23;
 
 
             circuets3.Cable = "FRLS";
-            circuets3.dU = 0.15;
+            circuets3._dU = 0.15;
             circuets3.I = 0.25;
             circuets3.Length = 150;
 
             circuets4.Cable = "LSLTx";
-            circuets4.dU = 0.75;
+            circuets4._dU = 0.75;
             circuets4.I = 78;
             circuets4.Length = 30050;
 
@@ -103,7 +103,7 @@ namespace WpfApp3.Model
             #endregion
             return items;
         }
-        
+
         public void GetValue()
         {
 

@@ -11,7 +11,8 @@
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:WpfApp3.ViewModel"
         xmlns:bh="clr-namespace:WpfApp3.ViewModel"
-        Title="MainWindow" Height="450" Width="1600">
+        xmlns:dg="clr-namespace:WpfApp3.Model"
+        Title="MainWindow" Height="800" Width="1600">
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
@@ -19,6 +20,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
             <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="600"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -26,7 +28,6 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
-
             <!--Текстовое поле для фильтрации элементов TreeView-->
             <TextBox x:Name="searchBox" DockPanel.Dock="Top" Height="30" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Text="{Binding SearchText}">
                 <ii:Interaction.Triggers>
@@ -40,8 +41,7 @@
                 <Button Content="Get TreeView" Command="{Binding OpenSth}" Width="100"/>
                 <Button Content="Show Check Item" Command="{Binding ShowCheck}" Width="100"/>
             </DockPanel>
-
-            <!--Само TreeView с обрабочиком поведения-->
+            <!--#region TreeView-->
             <TreeView BorderBrush="Black" BorderThickness="1" ItemsSource="{Binding Root}">
                 <ii:Interaction.Behaviors>
                     <beh:BindableSelectedItemBehavior SelectedItem="{Binding SelectedNode, Mode=TwoWay}"/>
@@ -55,25 +55,70 @@
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>
-
-
+            <!--#endregion-->
         </DockPanel>
-        <DataGrid x:Name="circ" AutoGenerateColumns="False" Height="210" HorizontalContentAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="0" Margin="0,0,0,0">
-            <!--<DataGrid.Columns>
-                <DataGridTextColumn Header="Длина" Width="1*" MinWidth="100"/>
-                <DataGridTextColumn Header="Потери" Width="1*" MinWidth="100"/>
-                <DataGridTextColumn Header="Кабель" Width="1*" MinWidth="100"/>
-                <DataGridTextColumn Header="Ток" Width="1*" MinWidth="100"/>
+
+
+
+
+        <DataGrid x:Name="circits" 
+                  AutoGenerateColumns="True" 
+                  HorizontalContentAlignment="Left" 
+                  VerticalAlignment="Top" 
+                  Grid.RowSpan="2" Grid.Column="2" Grid.Row="0" Margin="0,0,0,0" 
+                  ItemsSource="{Binding CircuetsProp}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Имя цепи" Binding="{Binding Cable}"/>
+                <DataGridCheckBoxColumn Header="dfdffffd" Visibility="Hidden"/>
+                <DataGridTemplateColumn Header="Фаза">
+                    <!--<DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock x:Name="NamePhase" Text="{Binding ElementName=Item}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>-->
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox ItemsSource="{Binding Phase}" SelectedItem="{Binding LinePhase}">
+                                <!--<ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>-->
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
-            <DataGrid.Resources>
-                <
-                <DataTemplate>
-                    <
-                </DataTemplate>
-            </DataGrid.Resources>-->
+
+            <!--#region Разворот DataFrid-->
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="LayoutTransform">
+                        <Setter.Value>
+                            <TransformGroup>
+                                <RotateTransform Angle="90"/>
+                            </TransformGroup>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.LayoutTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="-90"/>
+                </TransformGroup>
+            </DataGrid.LayoutTransform>
+            <DataGrid.CellStyle>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="LayoutTransform">
+                        <Setter.Value>
+                            <TransformGroup>
+                                <RotateTransform Angle="90"/>
+                            </TransformGroup>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.CellStyle>
+            <!--#endregion-->
         </DataGrid>
-        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding TextText, Mode=TwoWay}" Background="Aqua" Width="200" Height="50"/>
-        <Button Content="Show Check Item" Command="{Binding Sth}" Width="100"/>
-        
     </Grid>
 </Window>
