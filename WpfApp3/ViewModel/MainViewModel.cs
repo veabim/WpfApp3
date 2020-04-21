@@ -26,40 +26,31 @@ namespace WpfApp3.ViewModel
         #endregion
 
         #region Поля
-        private Item item;
+        private ElPanel SelectedPanel;
         MainModel mainModel = new MainModel();
         private ICollectionView root;
-        private string linePhase;
         #endregion
 
         #region Свойства
-        public ObservableCollection<Circuets> CircuetsProp { get; set; } = new ObservableCollection<Circuets>();
+        public ObservableCollection<ElCircuet> CircuetsProp { get; set; } = new ObservableCollection<ElCircuet>();
         public ICommand OpenSth { get; }
         public ICommand ShowCheck { get; }
-        public ICommand Sth { get; }
+
         public ICollectionView Root
         {
             get => root;
             set => SetProperty(ref root, value);
         }
-        public Item SelectedNode
+        public ElPanel SelectedNode
         {
-            get => item;
+            get => SelectedPanel;
             set
             {
-                item = value;
+                SelectedPanel = value;
                 //RaisePropertyChanged(nameof(SelectedNode));
-                CircuetsProp = item?.ListOfCircuets;
+                CircuetsProp = SelectedPanel?.ElCircuetsList;
                 RaisePropertyChanged(nameof(CircuetsProp));
-            }
-        }
-        public string LinePhase
-        {
-            get => linePhase;
-            set
-            {
-                RaisePropertyChanged(nameof(LinePhase));
-                linePhase = value;
+                //CircuetsProp.Clear();
             }
         }
         #endregion
@@ -71,7 +62,7 @@ namespace WpfApp3.ViewModel
             Root = CollectionViewSource.GetDefaultView(itemTree);
             Root.Filter = new Predicate<object>((item) =>
             {
-                var realItem = (Item)item;
+                var realItem = (ElPanel)item;
                 return true;
             });
             Root.Refresh();
@@ -80,7 +71,7 @@ namespace WpfApp3.ViewModel
         public void ShowCheckedItemsCommand()
         {
             var str = new StringBuilder();
-            List<Item> items = mainModel.FindCheckedItem();
+            List<ElPanel> items = mainModel.FindCheckedItem();
             if (items.Count == 0)
             {
                 str.Append("No selected items");

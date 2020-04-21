@@ -101,11 +101,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\Circuets.cs" />
-    <Compile Include="Model\ElApp.cs" />
-    <Compile Include="Model\Item.cs" />
     <Compile Include="Model\MainModel.cs" />
     <Compile Include="ViewModel\BindableSelectedItemBehavior.cs" />
+    <Compile Include="ViewModel\ElApp.cs" />
+    <Compile Include="ViewModel\ElCable.cs" />
+    <Compile Include="ViewModel\ElCircuet.cs" />
+    <Compile Include="ViewModel\ElPanel.cs" />
+    <Compile Include="ViewModel\ElPhase.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

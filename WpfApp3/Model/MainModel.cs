@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfApp3.ViewModel;
 
 namespace WpfApp3.Model
 {
@@ -12,29 +13,38 @@ namespace WpfApp3.Model
     class MainModel : BindableBase
     {
 
-        List<Item> items = new List<Item>();
+        List<ElPanel> items = new List<ElPanel>();
         #region
-        Item item1 = new Item("Итем 1");
-        Item item2 = new Item("Итем 2");
-        Item item3 = new Item("Итем 3");
+        ElPanel item1 = new ElPanel("Итем 1");
+        ElPanel item2 = new ElPanel("Итем 2");
+        ElPanel item3 = new ElPanel("Итем 3");
 
-        Item item1_1 = new Item("Итем 1.1");
-        Item item1_2 = new Item("Итем 1.2");
+        ElPanel item1_1 = new ElPanel("Итем 1.1");
+        ElPanel item1_2 = new ElPanel("Итем 1.2");
 
-        Item item2_1 = new Item("Итем 2.1");
-        Item item2_2 = new Item("Итем 2.2");
-        Item item2_3 = new Item("Итем 2.3");
+        ElPanel item2_1 = new ElPanel("Итем 2.1");
+        ElPanel item2_2 = new ElPanel("Итем 2.2");
+        ElPanel item2_3 = new ElPanel("Итем 2.3");
 
-        Item item3_1 = new Item("Итем 3.1");
-        Item item3_2 = new Item("Итем 3.2");
+        ElPanel item3_1 = new ElPanel("Итем 3.1");
+        ElPanel item3_2 = new ElPanel("Итем 3.2");
 
-        Item item2_1_1 = new Item("Итем 2.1.1");
+        ElPanel item2_1_1 = new ElPanel("Итем 2.1.1");
 
-        Circuets circuets1 = new Circuets();
-        Circuets circuets2 = new Circuets();
-        Circuets circuets3 = new Circuets();
-        Circuets circuets4 = new Circuets();
-        public List<Item> GetItemsTree()
+        ElCircuet circuets1_1 = new ElCircuet();
+        ElCircuet circuets1_2 = new ElCircuet();
+        ElCircuet circuets1_3 = new ElCircuet();
+
+
+        ElCircuet circuets2_1 = new ElCircuet();
+        ElCircuet circuets2_2 = new ElCircuet();
+
+
+        ElCircuet circuets3_1 = new ElCircuet();
+        ElCircuet circuets3_2 = new ElCircuet();
+        ElCircuet circuets3_3 = new ElCircuet();
+        ElCircuet circuets3_4 = new ElCircuet();
+        public List<ElPanel> GetItemsTree()
         {
             item1.Root = null;
             item2.Root = null;
@@ -68,38 +78,20 @@ namespace WpfApp3.Model
             items.Add(item2);
             items.Add(item3);
 
-            circuets1.Cable = "ВВГнг";
-            circuets1._dU = 0.25;
-            circuets1.I = 25;
-            circuets1.Length = 110;
-
-            circuets2.Cable = "ПуГВ";
-            circuets2._dU = 1.05;
-            circuets2.I = 40;
-            circuets2.Length = 23;
+            //circuets1.LineNumber = "Линия 1.1";
 
 
-            circuets3.Cable = "FRLS";
-            circuets3._dU = 0.15;
-            circuets3.I = 0.25;
-            circuets3.Length = 150;
+            item1.ElCircuetsList.Add(circuets1_1);
+            item1.ElCircuetsList.Add(circuets1_2);
+            item1.ElCircuetsList.Add(circuets1_3);
 
-            circuets4.Cable = "LSLTx";
-            circuets4._dU = 0.75;
-            circuets4.I = 78;
-            circuets4.Length = 30050;
+            item2.ElCircuetsList.Add(circuets2_1);
+            item2.ElCircuetsList.Add(circuets2_2);
 
-            item1.ListOfCircuets.Add(circuets1);
-            item1.ListOfCircuets.Add(circuets2);
-            item1.ListOfCircuets.Add(circuets3);
-
-            item2.ListOfCircuets.Add(circuets2);
-            item2.ListOfCircuets.Add(circuets3);
-
-            item3.ListOfCircuets.Add(circuets3);
-            item3.ListOfCircuets.Add(circuets2);
-            item3.ListOfCircuets.Add(circuets1);
-            item3.ListOfCircuets.Add(circuets4);
+            item3.ElCircuetsList.Add(circuets3_1);
+            item3.ElCircuetsList.Add(circuets3_2);
+            item3.ElCircuetsList.Add(circuets3_3);
+            item3.ElCircuetsList.Add(circuets3_4);
             #endregion
             return items;
         }
@@ -108,14 +100,14 @@ namespace WpfApp3.Model
         {
 
         }
-        public List<Item> FindCheckedItem()
+        public List<ElPanel> FindCheckedItem()
         {
-            List<Item> checkedItem = new List<Item>();
+            List<ElPanel> checkedItem = new List<ElPanel>();
             FindCheckedItemInternal(checkedItem, items);
             return checkedItem;
         }
 
-        private void FindCheckedItemInternal(List<Item> checkedItem, List<Item> subItem)
+        private void FindCheckedItemInternal(List<ElPanel> checkedItem, List<ElPanel> subItem)
         {
             foreach (var item in subItem)
             {
