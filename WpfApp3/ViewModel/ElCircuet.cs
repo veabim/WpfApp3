@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,21 +8,127 @@ using WpfApp3.Model;
 
 namespace WpfApp3.ViewModel
 {
-    public class ElCircuet
+    public class ElCircuet : BindableBase
     {
-        public string LineNumber { get; set; } /*номер линии*/
-        public double InstElPower { get; set; } /*Установленная мощность*/
-        public double Кс { get; set; } /*Коэффициент спроса (системный подсчет)*/
-        public double Ксp { get; set; } /*Коэффициент спроса (дополнительный подсчет)*/
-        public double DesElPower { get; set; } /*Расчетная мощность*/
 
-        public int NPhase { get; set; } /*Кол-во фаз*/
+
+
+        private double desElPower;
+        private double instElPower;
+        private double кс;
+        private double ксp;
+        private int nPhase;
+        private double desElCurrent;
+        private double cosf1;
+
+        public ElCircuet()
+        {
+            elPhase.Add("A");
+            elPhase.Add("B");
+            elPhase.Add("C");
+            elPhase.Add("ABC");
+        }
+
+        public string LineNumber { get; set; } /*номер линии*/
+        public double InstElPower /*Установленная мощность*/
+        {
+            get => instElPower;
+            set
+            {
+                instElPower = value;
+                desElPower = Math.Round((InstElPower * Кс * Ксp), 2);
+                RaisePropertyChanged(nameof(DesElPower));
+            }
+        }
+        public double Кс /*Коэффициент спроса (системный подсчет)*/
+        {
+            get => кс;
+            set
+            {
+                кс = value;
+                desElPower = Math.Round((InstElPower * Кс * Ксp), 2);
+                RaisePropertyChanged(nameof(DesElPower));
+            }
+        }
+        public double Ксp /*Коэффициент спроса (дополнительный подсчет)*/
+        {
+            get => ксp;
+            set
+            {
+                ксp = value;
+                desElPower = Math.Round((InstElPower * Кс * Ксp), 2);
+                RaisePropertyChanged(nameof(DesElPower));
+            }
+        }
+        public double DesElPower /*Расчетная мощность*/
+        {
+            get
+            {
+                return desElPower;
+            }
+
+            set
+            {
+                desElPower = value;
+                desElPower = InstElPower * Кс * Ксp;
+            }
+
+        }
+
+        public int NPhase /*Кол-во фаз*/
+        {
+            get => nPhase;
+            set
+            {
+                if (value == 3)
+                {
+                    nPhase = value;
+                    desElCurrent = Math.Round((DesElPower / Math.Sqrt(3) / 0.38 / cosf), 2);
+                    RaisePropertyChanged(nameof(DesElCurrent));
+                }
+                else if (value == 1)
+                {
+                    nPhase = value;
+                    desElCurrent = Math.Round((DesElPower / 0.22 / cosf), 2);
+                    RaisePropertyChanged(nameof(DesElCurrent));
+                }
+                else
+                {
+                    nPhase = 0;
+                }
+            }
+        }
         public bool ActivePhaseLock { get; set; } /*Замок для фазы*/
-        public ElPhase elPhase { get; set; } = new ElPhase(); /*Список ваз А В и С*/
+        public List<string> elPhase { get; set; } = new List<string>(); /*Список ваз А В и С*/
         public string ActivePhase { get; set; } /*Активная фаза*/
 
-        public double cosf { get; set; } /*Коэффициент мощности*/
-        public double DesElCurrent { get; set; } /*Расчетный ток*/
+        public double cosf /*Коэффициент мощности*/
+        {
+            get => cosf1;
+            set
+            {
+                cosf1 = value;
+                if (NPhase == 3)
+                {
+                    desElCurrent = Math.Round((DesElPower / Math.Sqrt(3) / 0.38 / cosf), 2);
+                    RaisePropertyChanged(nameof(DesElCurrent));
+                }
+                if (NPhase == 1)
+                {
+                    desElCurrent = Math.Round((DesElPower / 0.22 / cosf), 2);
+                    RaisePropertyChanged(nameof(DesElCurrent));
+                }
+
+            }
+        }
+        public double DesElCurrent /*Расчетный ток*/
+        {
+            get => desElCurrent;
+            set
+            {
+                desElCurrent = value;
+            }
+        }
 
 
         public ElApp ElApp1 { get; set; } = new ElApp(); /*Первый аппарат в линии*/

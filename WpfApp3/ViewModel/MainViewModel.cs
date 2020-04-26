@@ -29,10 +29,24 @@ namespace WpfApp3.ViewModel
         private ElPanel SelectedPanel;
         MainModel mainModel = new MainModel();
         private ICollectionView root;
+        private ObservableCollection<ElCircuet> circuetsProp = new ObservableCollection<ElCircuet>();
+        double i = 5;
         #endregion
 
         #region Свойства
-        public ObservableCollection<ElCircuet> CircuetsProp { get; set; } = new ObservableCollection<ElCircuet>();
+        public ObservableCollection<ElCircuet> CircuetsProp
+        {
+            get => circuetsProp;
+            set
+            {
+                circuetsProp = value;
+                
+                Pppp = i;
+                i++;
+                RaisePropertyChanged(nameof(Pppp));
+            }
+        }
+        public double Pppp { get; set; }
         public ICommand OpenSth { get; }
         public ICommand ShowCheck { get; }
 

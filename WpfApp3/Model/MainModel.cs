@@ -78,7 +78,14 @@ namespace WpfApp3.Model
             items.Add(item2);
             items.Add(item3);
 
-            //circuets1.LineNumber = "Линия 1.1";
+            circuets1_1.LineNumber = "Линия 1.1";
+            circuets1_1.InstElPower = 10;
+            circuets1_1.Кс = 0.9;
+            circuets1_1.Ксp = 1;
+
+            circuets1_1.NPhase = 3;
+            circuets1_1.cosf = 0.8;
+
 
 
             item1.ElCircuetsList.Add(circuets1_1);
@@ -92,6 +99,10 @@ namespace WpfApp3.Model
             item3.ElCircuetsList.Add(circuets3_2);
             item3.ElCircuetsList.Add(circuets3_3);
             item3.ElCircuetsList.Add(circuets3_4);
+
+            
+
+
             #endregion
             return items;
         }

@@ -12,7 +12,7 @@
         xmlns:vm="clr-namespace:WpfApp3.ViewModel"
         xmlns:bh="clr-namespace:WpfApp3.ViewModel"
         xmlns:dg="clr-namespace:WpfApp3.Model"
-        Title="MainWindow" Height="800" Width="1600">
+        Title="MainWindow" Height="850" Width="1600">
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
@@ -20,7 +20,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
             <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="600"/>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -55,20 +55,31 @@
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>
+
             <!--#endregion-->
         </DockPanel>
-        
+        <StackPanel Grid.Row="0" Grid.Column="2">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Top" Text="{Binding Pppp}"/>
+                <TextBlock DockPanel.Dock="Top" Text="1"/>
+                <TextBlock DockPanel.Dock="Top" Text="1"/>
+                <TextBlock DockPanel.Dock="Top" Text="1"/>
+                <TextBlock DockPanel.Dock="Top" Text="1"/>
+            </DockPanel>
+        </StackPanel>
         <DataGrid x:Name="circits" 
                   AutoGenerateColumns="False" 
                   HorizontalContentAlignment="Left" 
                   VerticalAlignment="Top" 
-                  Grid.RowSpan="2" Grid.Column="2" Grid.Row="0" Margin="0,0,0,0" 
-                  ItemsSource="{Binding CircuetsProp}">
-          
+                  Grid.RowSpan="2" Grid.Column="3" Grid.Row="0" Margin="0,0,0,0" 
+                  ItemsSource="{Binding CircuetsProp}"
+                  ScrollViewer.CanContentScroll="False"
+                  ScrollViewer.VerticalScrollBarVisibility="Visible"
+                  ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                  >
+
             <DataGrid.Columns>
-
                 <DataGridTextColumn Header="Помещения" Binding="{Binding LoadLocation}"/>
-
                 <DataGridTextColumn Header="УГО" Binding="{Binding Grapth}"/>
                 <DataGridCheckBoxColumn Header=" " Binding="{Binding GrapthLock}"/>
 
@@ -80,10 +91,10 @@
 
                 <DataGridTextColumn Header="Способ прокладки" Binding="{Binding CableLayingMethod}"/>
                 <DataGridCheckBoxColumn Header="Способ прокладки (Лоток Да/Нет)" Binding="{Binding IsCableTray}"/>
-                
+
                 <DataGridTextColumn Header="Ток КЗ" Binding="{Binding ElSCCurrnt}"/>
                 <DataGridTextColumn Header="Потери напряжения" Binding="{Binding dU}"/>
-                
+
                 <DataGridTextColumn Header="Расчетная длина кабеля" Binding="{Binding ElCable1.CableDesLegth}"/>
                 <DataGridTextColumn Header="Коэффициент запаса длины кабеля" Binding="{Binding ElCable1.KCable}"/>
                 <DataGridTextColumn Header="Фактическая длина кабеля" Binding="{Binding ElCable1.CableFactLegth}"/>
@@ -99,7 +110,19 @@
                 <DataGridTextColumn Header="Имя аппарата 1" Binding="{Binding ElApp1.ElAppName}"/>
                 <DataGridTextColumn Header="Номер аппарата 1" Binding="{Binding ElApp1.ElAppNumber}"/>
                 <DataGridCheckBoxColumn Header=" " Binding="{Binding ElApp1.ElAppLock}"/>
-                <DataGridTextColumn Header="Тип аппарата 1" Binding="{Binding ElApp1.ElAppType}"/>
+
+                <DataGridTemplateColumn Header="Тип аппарата 1">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ElApp1.ElAppType}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <ComboBox ItemsSource="{Binding ElApp1.ElAppTypeList}" SelectedItem="{Binding ElApp1.ElAppType}" IsEditable="True"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
 
                 <DataGridTextColumn Header="Расчетный ток" Binding="{Binding DesElCurrent}"/>
                 <DataGridTextColumn Header="Коэффициент мощности (cosф)" Binding="{Binding cosf}"/>
@@ -112,21 +135,19 @@
                     </DataGridTemplateColumn.CellTemplate>
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
-                            <ComboBox ItemsSource="{Binding elPhase}" SelectedItem="{Binding ActivePhase}"/>
+                            <ComboBox ItemsSource="{Binding elPhase}" SelectedItem="{Binding ActivePhase}" IsEditable="True"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
                 <DataGridCheckBoxColumn Header=" " Binding="{Binding ActivePhaseLock}"/>
 
                 <DataGridTextColumn Header="Кол-во фаз" Binding="{Binding NPhase}"/>
-                <DataGridTextColumn Header="Расчетная мощность" Binding="{Binding DesElPower}"/>
+                <DataGridTextColumn Header="Расчетная мощность" Binding="{Binding DesElPower, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, Mode=TwoWay}"/>
                 <DataGridTextColumn Header="Коэффициент спроса (дополнительный подсчет)" Binding="{Binding Ксp}"/>
                 <DataGridTextColumn Header="Коэффициент спроса (системный подсчет)" Binding="{Binding Кс}"/>
                 <DataGridTextColumn Header="Установленная мощность" Binding="{Binding InstElPower}"/>
                 <DataGridTextColumn Header="Имя цепи" Binding="{Binding LineNumber}"/>
             </DataGrid.Columns>
-
-            <!--#region Разворот DataFrid-->
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="LayoutTransform">
@@ -152,10 +173,14 @@
                             </TransformGroup>
                         </Setter.Value>
                     </Setter>
-                    <Setter Property="Width" Value="50"/>
+                    <Setter Property="Width" Value="70"/>
+                    <Style.Triggers>
+                        <Trigger Property="DataGridCell.IsSelected" Value="True">
+                            <Setter Property="Background" Value="#0078D7"/>
+                        </Trigger>
+                    </Style.Triggers>
                 </Style>
             </DataGrid.CellStyle>
-            <!--#endregion-->
         </DataGrid>
     </Grid>
 </Window>
