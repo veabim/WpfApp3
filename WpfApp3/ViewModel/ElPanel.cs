@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -8,8 +9,10 @@ using WpfApp3.Model;
 
 namespace WpfApp3.ViewModel
 {
-    public class ElPanel
+    public class ElPanel : BindableBase
     {
+        private double instElPower;
+
         public string Name { get; set; }
         public ElPanel(string name)
         {
@@ -20,5 +23,18 @@ namespace WpfApp3.ViewModel
         public string Source { get; set; }
         public bool CheckedItem { get; set; }
         public ObservableCollection<ElCircuet> ElCircuetsList { get; set; } = new ObservableCollection<ElCircuet>();
+        public double InstElPower
+        {
+            get => instElPower;
+            set
+            {
+                instElPower = value;
+                RaisePropertyChanged(nameof(InstElPower));
+            }
+        }
+        public double Kc { get; set; }
+        public double DesElPower { get; set; }
+        public double cosf { get; set; }
+        public double DesElCurrent { get; set; }
     }
 }

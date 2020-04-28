@@ -16,6 +16,7 @@ namespace WpfApp3.ViewModel
 {
     class MainViewModel : BindableBase
     {
+
         #region Конструкторы
         public MainViewModel()
         {
@@ -26,27 +27,23 @@ namespace WpfApp3.ViewModel
         #endregion
 
         #region Поля
+        
         private ElPanel SelectedPanel;
         MainModel mainModel = new MainModel();
         private ICollectionView root;
         private ObservableCollection<ElCircuet> circuetsProp = new ObservableCollection<ElCircuet>();
-        double i = 5;
         #endregion
 
         #region Свойства
+        public double InstElPowerElPannel { get; set; }
         public ObservableCollection<ElCircuet> CircuetsProp
         {
             get => circuetsProp;
             set
             {
                 circuetsProp = value;
-                
-                Pppp = i;
-                i++;
-                RaisePropertyChanged(nameof(Pppp));
             }
         }
-        public double Pppp { get; set; }
         public ICommand OpenSth { get; }
         public ICommand ShowCheck { get; }
 
@@ -61,10 +58,11 @@ namespace WpfApp3.ViewModel
             set
             {
                 SelectedPanel = value;
-                //RaisePropertyChanged(nameof(SelectedNode));
                 CircuetsProp = SelectedPanel?.ElCircuetsList;
+                //InstElPowerElPannel = SumInstElPower(CircuetsProp);
+                SumInstElPower(CircuetsProp);
                 RaisePropertyChanged(nameof(CircuetsProp));
-                //CircuetsProp.Clear();
+                RaisePropertyChanged(nameof(InstElPowerElPannel));
             }
         }
         #endregion
@@ -81,7 +79,6 @@ namespace WpfApp3.ViewModel
             });
             Root.Refresh();
         }
-
         public void ShowCheckedItemsCommand()
         {
             var str = new StringBuilder();
@@ -100,6 +97,15 @@ namespace WpfApp3.ViewModel
             MessageBox.Show(str.ToString());
         }
         #endregion
-
+        public void SumInstElPower(ObservableCollection<ElCircuet> elCircuets)
+        {
+            double instElPower = 0;
+            foreach (ElCircuet elCirc in elCircuets)
+            {
+                instElPower = instElPower + elCirc.InstElPower;
+            }
+            InstElPowerElPannel = instElPower;
+            RaisePropertyChanged(nameof(InstElPowerElPannel));
+        }
     }
 }

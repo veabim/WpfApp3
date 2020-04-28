@@ -58,15 +58,24 @@
 
             <!--#endregion-->
         </DockPanel>
-        <StackPanel Grid.Row="0" Grid.Column="2">
-            <DockPanel>
-                <TextBlock DockPanel.Dock="Top" Text="{Binding Pppp}"/>
-                <TextBlock DockPanel.Dock="Top" Text="1"/>
-                <TextBlock DockPanel.Dock="Top" Text="1"/>
-                <TextBlock DockPanel.Dock="Top" Text="1"/>
-                <TextBlock DockPanel.Dock="Top" Text="1"/>
-            </DockPanel>
-        </StackPanel>
+        <DockPanel Grid.Row="0" Grid.Column="2" Width="200" Height="100">
+            <StackPanel Width="100">
+                <TextBlock DockPanel.Dock="Top" Text="Установленная мощность"/>
+                <TextBlock DockPanel.Dock="Top" Text="Коэффициент спроса"/>
+                <TextBlock DockPanel.Dock="Top" Text="Дополн. коэффициент спроса"/>
+                <TextBlock DockPanel.Dock="Top" Text="Расчетная мозность"/>
+                <TextBlock DockPanel.Dock="Top" Text="cosф"/>
+                <TextBlock DockPanel.Dock="Top" Text="Расчетный ток"/>
+            </StackPanel>
+            <StackPanel Width="100">
+                <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" Text="{Binding InstElPowerElPannel, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, Mode=TwoWay}"/>
+                <TextBlock DockPanel.Dock="Top" Text="Коэффициент спроса"/>
+                <TextBlock DockPanel.Dock="Top" Text="Дополн. коэффициент спроса"/>
+                <TextBlock DockPanel.Dock="Top" Text="Расчетная мозность"/>
+                <TextBlock DockPanel.Dock="Top" Text="cosф"/>
+                <TextBlock DockPanel.Dock="Top" Text="Расчетный ток"/>
+            </StackPanel>
+        </DockPanel>
         <DataGrid x:Name="circits" 
                   AutoGenerateColumns="False" 
                   HorizontalContentAlignment="Left" 
