@@ -44,6 +44,9 @@ namespace WpfApp3.ViewModel
                 circuetsProp = value;
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public ICommand OpenSth { get; }
         public ICommand ShowCheck { get; }
 

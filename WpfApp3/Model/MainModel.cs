@@ -87,6 +87,16 @@ namespace WpfApp3.Model
             circuets1_1.cosf = 0.8;
 
 
+            circuets1_1.Changed += CircuetsChanged;
+            circuets1_2.Changed += CircuetsChanged;
+            circuets1_3.Changed += CircuetsChanged;
+            circuets2_1.Changed += CircuetsChanged;
+            circuets2_2.Changed += CircuetsChanged;
+            circuets3_1.Changed += CircuetsChanged;
+            circuets3_2.Changed += CircuetsChanged;
+            circuets3_3.Changed += CircuetsChanged;
+            circuets3_4.Changed += CircuetsChanged;
+
 
             item1.ElCircuetsList.Add(circuets1_1);
             item1.ElCircuetsList.Add(circuets1_2);
@@ -105,6 +115,12 @@ namespace WpfApp3.Model
 
             #endregion
             return items;
+        }
+
+        private void CircuetsChanged(object obj) {
+            var item = obj as ElCircuet;
+            if (item is null)
+                return;
         }
 
         public void GetValue()

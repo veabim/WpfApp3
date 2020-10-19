@@ -27,6 +27,14 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <DockPanel Grid.Column="0" Grid.Row="0">
+            <Button VerticalAlignment="Top" Width="32" Height="32" DockPanel.Dock="Top" Margin="0 18 0 0"/>
+            <Button VerticalAlignment="Top" Width="32" Height="32" DockPanel.Dock="Top" Margin="0 18 0 0"/>
+            <Button VerticalAlignment="Top" Width="32" Height="32" DockPanel.Dock="Top" Margin="0 18 0 0"/>
+            <Button VerticalAlignment="Top" Width="32" Height="32" DockPanel.Dock="Top" Margin="0 18 0 0"/>
+            <Button VerticalAlignment="Top" Width="32" Height="32" DockPanel.Dock="Top" Margin="0 18 0 0"/>
+            <Button VerticalAlignment="Top" Width="32" Height="32" DockPanel.Dock="Top" Margin="0 18 0 0"/>
+        </DockPanel>
         <DockPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
             <!--Текстовое поле для фильтрации элементов TreeView-->
             <TextBox x:Name="searchBox" DockPanel.Dock="Top" Height="30" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Text="{Binding SearchText}">
@@ -58,23 +66,46 @@
 
             <!--#endregion-->
         </DockPanel>
-        <DockPanel Grid.Row="0" Grid.Column="2" Width="200" Height="100">
-            <StackPanel Width="100">
-                <TextBlock DockPanel.Dock="Top" Text="Установленная мощность"/>
-                <TextBlock DockPanel.Dock="Top" Text="Коэффициент спроса"/>
-                <TextBlock DockPanel.Dock="Top" Text="Дополн. коэффициент спроса"/>
-                <TextBlock DockPanel.Dock="Top" Text="Расчетная мозность"/>
-                <TextBlock DockPanel.Dock="Top" Text="cosф"/>
-                <TextBlock DockPanel.Dock="Top" Text="Расчетный ток"/>
-            </StackPanel>
-            <StackPanel Width="100">
-                <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" Text="{Binding InstElPowerElPannel, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, Mode=TwoWay}"/>
-                <TextBlock DockPanel.Dock="Top" Text="Коэффициент спроса"/>
-                <TextBlock DockPanel.Dock="Top" Text="Дополн. коэффициент спроса"/>
-                <TextBlock DockPanel.Dock="Top" Text="Расчетная мозность"/>
-                <TextBlock DockPanel.Dock="Top" Text="cosф"/>
-                <TextBlock DockPanel.Dock="Top" Text="Расчетный ток"/>
-            </StackPanel>
+        <DockPanel Grid.Row="0" Grid.Column="2" Width="200">
+            <DockPanel DockPanel.Dock="Top" Margin="0 15 0 0">
+                <StackPanel Width="150">
+                    <TextBlock DockPanel.Dock="Top" Text="Установленная мощность" HorizontalAlignment="Left"/>
+                    <TextBlock DockPanel.Dock="Top" Text="Коэффициент спроса" HorizontalAlignment="Left"/>
+                    <TextBlock DockPanel.Dock="Top" Text="Дополн. коэф. спроса" HorizontalAlignment="Left"/>
+                    <TextBlock DockPanel.Dock="Top" Text="Расчетная мозность" HorizontalAlignment="Left"/>
+                    <TextBlock DockPanel.Dock="Top" Text="cosф" HorizontalAlignment="Left"/>
+                    <TextBlock DockPanel.Dock="Top" Text="Расчетный ток" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Width="100">
+                    <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Left" Text="{Binding InstElPowerElPannel, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, Mode=TwoWay}"/>
+                    <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Left" Text="Коэффициент спроса"/>
+                    <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Left" Text="Дополн. коэффициент спроса"/>
+                    <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Left" Text="Расчетная мозность"/>
+                    <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Left" Text="cosф"/>
+                    <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Left" Text="Расчетный ток"/>
+                </StackPanel>
+            </DockPanel>
+
+            <DockPanel DockPanel.Dock="Top" Margin="0 15 0 0">
+                <StackPanel>
+                    <TextBlock Text="Тип автомата" Width="150" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Марка автомата" Width="150" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Ток расцепителя" Width="150" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Хар-ка срабатывания" Width="150" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Ном. откл. способность" Width="150" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Ток утечки" Width="150" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Тип защитного автомата" Width="150" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Марка защитного автомата" Width="150" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Ток расцепителя" Width="150" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Хар-ка срабатывания" Width="150" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Ном. откл. способность" Width="150" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Ток утечки" Width="150" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </DockPanel>
+
+
         </DockPanel>
         <DataGrid x:Name="circits" 
                   AutoGenerateColumns="False" 
@@ -84,8 +115,7 @@
                   ItemsSource="{Binding CircuetsProp}"
                   ScrollViewer.CanContentScroll="False"
                   ScrollViewer.VerticalScrollBarVisibility="Visible"
-                  ScrollViewer.HorizontalScrollBarVisibility="Visible"
-                  >
+                  ScrollViewer.HorizontalScrollBarVisibility="Visible">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Помещения" Binding="{Binding LoadLocation}"/>
@@ -94,10 +124,23 @@
 
                 <DataGridTextColumn Header="Системное наименование нагрузки" Binding="{Binding SystemLoadName}"/>
                 <DataGridTextColumn Header="Наименование нагрузки" Binding="{Binding LoadName}"/>
-                <DataGridCheckBoxColumn Header=" " Binding="{Binding LoadNameLock}"/>
+                
 
-                <DataGridTextColumn Header="Длина трубы" Binding="{Binding PipeLength}"/>
 
+                <DataGridTemplateColumn Header="Длина трубы">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <TextBlock Text="{Binding PipeLength}" Width="100"/>
+                                <CheckBox/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+                
+                
+                
                 <DataGridTextColumn Header="Способ прокладки" Binding="{Binding CableLayingMethod}"/>
                 <DataGridCheckBoxColumn Header="Способ прокладки (Лоток Да/Нет)" Binding="{Binding IsCableTray}"/>
 
@@ -108,8 +151,16 @@
                 <DataGridTextColumn Header="Коэффициент запаса длины кабеля" Binding="{Binding ElCable1.KCable}"/>
                 <DataGridTextColumn Header="Фактическая длина кабеля" Binding="{Binding ElCable1.CableFactLegth}"/>
                 <DataGridTextColumn Header="Кол-во кабелей, жил и сечение" Binding="{Binding ElCable1.DCable}"/>
-                <DataGridCheckBoxColumn Header=" " Binding="{Binding ElCable1.CableLock}"/>
-                <DataGridTextColumn Header="Марка кабеля" Binding="{Binding ElCable1.CableMark}"/>
+                <DataGridTemplateColumn Header="Марка кабеля">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <TextBlock Text="{Binding ElCable1.CableMark}" Width="100"/>
+                                <CheckBox/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
                 <DataGridTextColumn Header="Имя аппарата 2" Binding="{Binding ElApp2.ElAppName}" Visibility="Hidden"/>
                 <DataGridTextColumn Header="Номер аппарата 2" Binding="{Binding ElApp2.ElAppNumber}" Visibility="Hidden"/>
@@ -118,19 +169,16 @@
 
                 <DataGridTextColumn Header="Имя аппарата 1" Binding="{Binding ElApp1.ElAppName}"/>
                 <DataGridTextColumn Header="Номер аппарата 1" Binding="{Binding ElApp1.ElAppNumber}"/>
-                <DataGridCheckBoxColumn Header=" " Binding="{Binding ElApp1.ElAppLock}"/>
 
                 <DataGridTemplateColumn Header="Тип аппарата 1">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding ElApp1.ElAppType}"/>
+                            <DockPanel>
+                                <TextBlock Text="{Binding ElApp1.ElAppType}" Width="100"/>
+                                <CheckBox/>
+                            </DockPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <ComboBox ItemsSource="{Binding ElApp1.ElAppTypeList}" SelectedItem="{Binding ElApp1.ElAppType}" IsEditable="True"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
 
                 <DataGridTextColumn Header="Расчетный ток" Binding="{Binding DesElCurrent}"/>
@@ -139,19 +187,31 @@
                 <DataGridTemplateColumn Header="Фаза">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding ActivePhase}"/>
+                            <DockPanel>
+                                <TextBlock Text="{Binding ActivePhase}" Width="100"/>
+                                <CheckBox/>
+                            </DockPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <ComboBox ItemsSource="{Binding elPhase}" SelectedItem="{Binding ActivePhase}" IsEditable="True"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
-                <DataGridCheckBoxColumn Header=" " Binding="{Binding ActivePhaseLock}"/>
 
+
+                
                 <DataGridTextColumn Header="Кол-во фаз" Binding="{Binding NPhase}"/>
-                <DataGridTextColumn Header="Расчетная мощность" Binding="{Binding DesElPower, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, Mode=TwoWay}"/>
+                
+                <DataGridTemplateColumn Header="Расчетная мощность">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <TextBox Text="{Binding DesElPower, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, Mode=TwoWay}" Width="100"/>
+                                <CheckBox IsChecked="{Binding LockTest, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, Mode=TwoWay}"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+                
+                
                 <DataGridTextColumn Header="Коэффициент спроса (дополнительный подсчет)" Binding="{Binding Ксp}"/>
                 <DataGridTextColumn Header="Коэффициент спроса (системный подсчет)" Binding="{Binding Кс}"/>
                 <DataGridTextColumn Header="Установленная мощность" Binding="{Binding InstElPower}"/>
@@ -182,7 +242,7 @@
                             </TransformGroup>
                         </Setter.Value>
                     </Setter>
-                    <Setter Property="Width" Value="70"/>
+                    <Setter Property="Width" Value="120"/>
                     <Style.Triggers>
                         <Trigger Property="DataGridCell.IsSelected" Value="True">
                             <Setter Property="Background" Value="#0078D7"/>
